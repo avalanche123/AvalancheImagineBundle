@@ -81,7 +81,7 @@ class ImagineController
         // correctly, hence make a 301 to proper location, so browser remembers
         if (file_exists($realPath)) {
             return new Response('', 301, array(
-                'location' => $cachePath
+                'location' => $this->cachePathResolver->getBasePath().$cachePath
             ));
         }
 
