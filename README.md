@@ -16,8 +16,8 @@ ImagineBundle requires ["Imagine library"](/avalanche123/Imagine)
 
         $loader->registerNamespaces(array(
             // your libraries
-            'Imagine'   => __DIR__.'/src/vendor/imagine/lib',
-            'Avalanche' => __DIR__.'/vendor/bundles',
+            'Imagine' => __DIR__.'/../src/vendor/imagine/lib',
+            'Avalanche'        => __DIR__.'/../vendor/bundles',
         ));
 
  4. Clone ImagineBundle into your src directory under Avalanche/Bundle path
