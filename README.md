@@ -178,6 +178,7 @@ Each filter that you specify have the following options:
  - `type` - determine the type of filter to be used, refer to *Filters* section for more information
  - `options` - options that should be passed to the specific filter type
  - `path` - override the global `cache_prefix` and replace it with this path
+ - `controller` - override the default `imagine.controller:filter` controller with your own controller
 
 ## Built-in Filters
 
