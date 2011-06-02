@@ -36,10 +36,14 @@ class ImagineLoader extends Loader
                 } else {
                     $pattern = '/'.trim($this->cachePrefix, '/').'/'.$filter.'/{path}';
                 }
-
+                $defaults['filter'] = $filter;
+                if (isset($options['controller'])) {
+                    $defaults['_controller'] = $options['controller'];
+                }
+                
                 $routes->add('_imagine_'.$filter, new Route(
                     $pattern,
-                    array_merge( $defaults, array('filter' => $filter)),
+                    $defaults,
                     $requirements
                 ));
             }
