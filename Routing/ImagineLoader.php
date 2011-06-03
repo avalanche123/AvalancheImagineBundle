@@ -40,6 +40,9 @@ class ImagineLoader extends Loader
                 if (isset($options['controller'])) {
                     $defaults['_controller'] = $options['controller'];
                 }
+                if (isset($options['sourceDir'])) {
+                    $defaults['sourceDir'] = $options['sourceDir'];
+                }
                 
                 $routes->add('_imagine_'.$filter, new Route(
                     $pattern,
