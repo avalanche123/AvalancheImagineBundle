@@ -179,6 +179,7 @@ Each filter that you specify have the following options:
  - `options` - options that should be passed to the specific filter type
  - `path` - override the global `cache_prefix` and replace it with this path
  - `controller` - override the default `imagine.controller:filter` controller with your own controller
+ - `sourceDir` - default directory for source images. Relative path provided for apply_filter is related to this directory
 
 ## Built-in Filters
 
