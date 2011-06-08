@@ -35,11 +35,15 @@ class ImagineLoader extends Loader
                     $pattern = '/'.trim($options['path'], '/').'/{path}';
                 } else {
                     $pattern = '/'.trim($this->cachePrefix, '/').'/'.$filter.'/{path}';
+                }				
+				$defaults['filter'] = $filter;
+                if (isset($options['sourceDir'])) {
+                    $defaults['sourceDir'] = $options['sourceDir'];
                 }
 
                 $routes->add('_imagine_'.$filter, new Route(
                     $pattern,
-                    array_merge( $defaults, array('filter' => $filter)),
+                    $defaults,
                     $requirements
                 ));
             }

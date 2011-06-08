@@ -77,9 +77,10 @@ class ImagineController
      *
      * @return Response
      */
-    public function filter($path, $filter)
+    public function filter($path, $filter, $sourceDir = '')
     {
         $path = '/'.ltrim($path, '/');
+		if ($sourceDir != '') $sourceDir = '/'.ltrim($sourceDir, '/');
 
         //TODO: find out why I need double urldecode to get a valid path
         $browserPath = urldecode(urldecode($this->cachePathResolver->getBrowserPath($path, $filter)));
@@ -95,7 +96,7 @@ class ImagineController
         }
 
         $realPath = $this->webRoot.$browserPath;
-        $sourcePath = $this->webRoot.$path;
+        $sourcePath = $this->webRoot.$sourceDir.$path;
 
         // if the file has already been cached, we're probably not rewriting
         // correctly, hence make a 301 to proper location, so browser remembers

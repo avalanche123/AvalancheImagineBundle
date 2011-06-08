@@ -182,6 +182,7 @@ Each filter that you specify have the following options:
  - `type` - determine the type of filter to be used, refer to *Filters* section for more information
  - `options` - options that should be passed to the specific filter type
  - `path` - override the global `cache_prefix` and replace it with this path
+ - `sourceDir` - default directory for source images. Relative path provided for apply_filter is related to this directory
 
 ## Built-in Filters
 
