@@ -15,32 +15,32 @@ class ImagineController
     /**
      * @var Symfony\Component\HttpFoundation\Request
      */
-    private $request;
+    protected $request;
 
     /**
      * @var Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver
      */
-    private $cachePathResolver;
+    protected $cachePathResolver;
 
     /**
      * @var Imagine\ImagineInterface
      */
-    private $imagine;
+    protected $imagine;
 
     /**
      * @var Avalanche\Bundle\ImagineBundle\Imagine\FilterManager
      */
-    private $filterManager;
+    protected $filterManager;
 
     /**
      * @var Symfony\Component\HttpKernel\Util\Filesystem
      */
-    private $filesystem;
+    protected $filesystem;
 
     /**
      * @var string
      */
-    private $webRoot;
+    protected $webRoot;
 
     /**
      * Constructs by setting $cachePathResolver
@@ -95,7 +95,6 @@ class ImagineController
         }
 
         $realPath = $this->webRoot.$browserPath;
-        $sourcePath = $this->webRoot.$path;
 
         // if the file has already been cached, we're probably not rewriting
         // correctly, hence make a 301 to proper location, so browser remembers
@@ -105,7 +104,7 @@ class ImagineController
             ));
         }
 
-        if (!file_exists($sourcePath)) {
+        if (!$this->sourceExists($path)) {
             throw new NotFoundHttpException(sprintf(
                 'Source image not found in "%s"', $sourcePath
             ));
@@ -124,8 +123,9 @@ class ImagineController
         ob_start();
         try {
             // TODO: get rid of hard-coded quality and format
+            $image = $this->getImage($path);
             $this->filterManager->get($filter)
-                ->apply($this->imagine->open($sourcePath))
+                ->apply($image)
                 ->save($realPath, array('quality' => 100))
                 ->show('png');
 
@@ -137,5 +137,13 @@ class ImagineController
             ob_end_clean();
             throw $e;
         }
+    }
+
+    protected function sourceExists($path) {
+        return file_exists($this->webRoot . $path);
+    }
+
+    protected function getImage($path) {
+        return $this->imagine->open($this->webRoot . $path);
     }
 }
