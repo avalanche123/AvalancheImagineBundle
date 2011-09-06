@@ -113,7 +113,7 @@ Congratulations! You're ready to rock your images!
 ## Basic Usage
 
 This bundle works by configuring a set of filters and then applying those
-filters to images inside a template So, start by creating some sort of filter
+filters to images inside a template. So, start by creating some sort of filter
 that you need to apply somewhere in your application. For example, suppose
 you want to thumbnail an image to a size of 120x90 pixels:
 
@@ -141,7 +141,7 @@ Or if you're using PHP templates:
 <img src="<?php $this['imagine']->filter('/relative/path/to/image.jpg', 'my_thumb') ?>" />
 ```
 
-Behind the scenes, the bundles apples the filter(s) to the image on the first
+Behind the scenes, the bundle applies the filter(s) to the image on the first
 request and then caches the image to a similar path. On the next request,
 the cached image would be served directly from the file system.
 
