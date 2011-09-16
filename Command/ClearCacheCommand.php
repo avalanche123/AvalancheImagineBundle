@@ -1,5 +1,7 @@
 <?php
-// Sokolov Innokenty, <r2.kenny@gmail.com>
+/**
+ * @author Sokolov Innokenty, <r2.kenny@gmail.com>
+ */
 
 namespace Avalanche\Bundle\ImagineBundle\Command;
 
@@ -46,7 +48,7 @@ EOF
                 ));
             }
             $this->clearByFilter($webRoot, $cachePrefix, $filterName, $filters[$filterName], $output);
-            exit();
+            return;
         }
 
         // clear all
