@@ -64,8 +64,8 @@ EOF
     protected function clearByFilter($webRoot, $cachePrefix, $filterName, $options, OutputInterface $output)
     {
         $dir = isset($options['path'])
-        ? $webRoot.'/'.$options['path']
-        : $webRoot.'/'.$cachePrefix.'/'.$filterName;
+            ? $webRoot.'/'.$options['path']
+            : $webRoot.'/'.$cachePrefix.'/'.$filterName;
 
         $output->writeln(sprintf('Clearing the avalanche cache, filter: <info>%s</info>', $filterName));
         $this->getContainer()->get('filesystem')->remove($dir);
