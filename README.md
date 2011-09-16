@@ -235,3 +235,17 @@ filters:
 
 For an example of a filter loader implementation, refer to
 `Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\ThumbnailFilterLoader`.
+
+## Cli
+
+Clear cache by filter name:
+
+``` bash
+$ ./app/console avalanche:cache:clear filter_name
+```
+
+Clear all filters:
+
+``` bash
+$ ./app/console avalanche:cache:clear --all
+```
