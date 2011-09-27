@@ -25,16 +25,18 @@ class ImagineLoader extends Loader
 
     public function load($resource, $type = null)
     {
-        $requirements = array('_method' => 'GET', 'filter'  => '[A-z0-9_\-]*', 'path'    => '.+');
-        $defaults     = array('_controller' => 'imagine.controller:filter');
+        $requirements = array('_method' => 'GET', 'filter' => '[A-z0-9_\-]*', 'path' => '.+');
+        $defaults     = array('_controller' => 'imagine.controller:filterAction');
         $routes       = new RouteCollection();
 
         if (count($this->filters) > 0) {
             foreach ($this->filters as $filter => $options) {
                 if (isset($options['path'])) {
-                    $pattern = '/'.trim($options['path'], '/').'/{path}';
+                    $pattern = $options['path'].'/{path}';
+                } elseif ('' !== $filter) {
+                    $pattern = $this->cachePrefix.'/'.$filter.'/{path}';
                 } else {
-                    $pattern = '/'.trim($this->cachePrefix, '/').'/'.$filter.'/{path}';
+                    $pattern = $this->cachePrefix.'/'.'{path}';
                 }
 
                 $routes->add('_imagine_'.$filter, new Route(
