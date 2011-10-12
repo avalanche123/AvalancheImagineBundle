@@ -14,7 +14,7 @@ class FilterManager
     private $loaders;
     private $services;
 
-    public function __construct( array $filters = array())
+    public function __construct(array $filters = array())
     {
         $this->filters   = $filters;
         $this->loaders   = array();
