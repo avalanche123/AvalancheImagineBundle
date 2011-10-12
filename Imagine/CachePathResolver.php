@@ -34,8 +34,9 @@ class CachePathResolver
      *
      * @param string $path
      * @param string $filter
+     * @param boolean $absolute
      */
-    public function getBrowserPath($path, $filter)
+    public function getBrowserPath($path, $filter, $absolute = false)
     {
         // identify if current path is not under specified web root and return
         // unmodified path in that case
@@ -50,7 +51,7 @@ class CachePathResolver
             urldecode(ltrim($path, '/')),
             $this->router->generate('_imagine_'.$filter, array(
                 'path' => ltrim($path, '/')
-            ))
+            ),$absolute)
         );
 
         return $path;
