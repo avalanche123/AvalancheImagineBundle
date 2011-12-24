@@ -5,7 +5,7 @@ namespace Avalanche\Bundle\ImagineBundle\Controller;
 use Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver;
 use Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager;
 use Imagine\Image\ImagineInterface;
-use Symfony\Component\HttpKernel\Util\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -33,7 +33,7 @@ class ImagineController
     private $filterManager;
 
     /**
-     * @var Symfony\Component\HttpKernel\Util\Filesystem
+     * @var Symfony\Component\Filesystem\Filesystem
      */
     private $filesystem;
 
@@ -49,6 +49,7 @@ class ImagineController
      * @param Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver $cachePathResolver
      * @param Imagine\Image\ImagineInterface                           $imagine
      * @param Avalanche\Bundle\ImagineBundle\Imagine\FilterManager     $filterManager
+     * @param Symfony\Component\Filesystem\Filesystem                  $filesystem
      * @param string                                                   $webRoot
      */
     public function __construct(
