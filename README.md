@@ -155,6 +155,7 @@ The default configuration for the bundle looks like this:
 
 ``` yaml
 avalanche_imagine:
+    source_root:  %kernel.root_dir%/../web
     web_root:     %kernel.root_dir%/../web
     cache_prefix: media/cache
     driver:       gd
@@ -162,6 +163,14 @@ avalanche_imagine:
 ```
 
 There are several configuration options available:
+
+ - `source_root` - can be set to the absolute path to your original image's
+    directory. This option allows you to store the original image in a 
+    different location from the web root. Under this root the images will 
+    be looked for in the same relative path specified in the apply_filter
+    template filter.
+
+    default: `%kernel.root_dir%/../web`
 
  - `web_root` - must be the absolute path to you application's web root. This
     is used to determine where to put generated image files, so that apache
