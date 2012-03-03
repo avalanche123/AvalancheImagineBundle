@@ -1,0 +1,26 @@
+{
+    "name": "avalanche123/imagine-bundle",
+    "description": "Image manipulation using Imagine and Twig Filters.",
+    "keywords": ["image manipulation", "imagine"],
+    "homepage": "https://github.com/avalanche123/AvalancheImagineBundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bulat Shakirzyanov",
+            "email": "mallluhuct@gmail.com",
+            "homepage": "http://avalanche123.com"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "2.*",
+        "imagine/Imagine": "dev-master"
+    },
+    "suggest": {
+        "symfony/twig-bundle": "2.*"
+    },
+    "autoload": {
+        "psr-0": { "Avalanche\\Bundle\\ImagineBundle": "" }
+    },
+    "target-dir": "Avalanche/Bundle/ImagineBundle"
+}
