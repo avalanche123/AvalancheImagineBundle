@@ -126,17 +126,20 @@ class ImagineController
             }
         }
 
+        $quality = $this->filterManager->getFilterOption($filter, "quality", 100);
+        $format = $this->filterManager->getFilterOption($filter, "format", "png");
+        $mime = $this->filterManager->getFilterOption($filter, "mime", 'image/png');
+        
         ob_start();
         try {
-            // TODO: get rid of hard-coded quality and format
             $this->filterManager->get($filter)
                 ->apply($this->imagine->open($sourcePath))
-                ->save($realPath, array('quality' => 100))
-                ->show('png');
+                ->save($realPath, array('quality' => $quality))
+                ->show($format);
 
             // TODO: add more media headers
             return new Response(ob_get_clean(), 201, array(
-                'content-type' => 'image/png',
+                'content-type' => $mime,
             ));
         } catch (\Exception $e) {
             ob_end_clean();

@@ -210,7 +210,7 @@ on your image. Configuration looks like this:
 filters:
     my_thumb:
         type:    thumbnail
-        options: { size: [120, 90], mode: outbound }
+        options: { size: [120, 90], mode: outbound, quality: 60, format: 'jpg', mime: 'image/jpg' }
 ```
 
 The `mode` can be either `outbound` or `inset`.

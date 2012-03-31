@@ -56,4 +56,12 @@ class FilterManager
 
         return $this->loaders[$options['type']]->load($options['options']);
     }
+    
+    public function getFilterOption($filter,$key,$default="")
+    {
+        if (isset($this->filters[$filter]['options'][$key]))
+            return $this->filters[$filter]['options'][$key];
+        else 
+            return $default;
+    }
 }
