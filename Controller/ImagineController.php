@@ -42,6 +42,8 @@ class ImagineController
      */
     private $webRoot;
 
+    private $sourceRoot;
+
     /**
      * Constructs by setting $cachePathResolver
      *
@@ -58,7 +60,8 @@ class ImagineController
         ImagineInterface $imagine,
         FilterManager $filterManager,
         Filesystem $filesystem,
-        $webRoot
+        $webRoot,
+        $sourceRoot
     )
     {
         $this->request           = $request;
@@ -67,6 +70,7 @@ class ImagineController
         $this->filterManager     = $filterManager;
         $this->filesystem        = $filesystem;
         $this->webRoot           = $webRoot;
+        $this->sourceRoot        = $sourceRoot;
     }
 
     /**
@@ -96,7 +100,7 @@ class ImagineController
         }
 
         $realPath = $this->webRoot.$browserPath;
-        $sourcePath = $this->webRoot.$path;
+        $sourcePath = $this->sourceRoot.$path;
 
         // if the file has already been cached, we're probably not rewriting
         // correctly, hence make a 301 to proper location, so browser remembers
