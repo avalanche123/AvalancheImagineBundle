@@ -56,4 +56,9 @@ class FilterManager
 
         return $this->loaders[$options['type']]->load($options['options']);
     }
+
+    public function getFilters()
+    {
+        return $this->filters;
+    }
 }

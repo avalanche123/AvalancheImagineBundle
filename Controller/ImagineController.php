@@ -143,6 +143,7 @@ class ImagineController
             ob_end_clean();
             throw $e;
         }
+    }
 
 
 
