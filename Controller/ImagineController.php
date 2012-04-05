@@ -79,10 +79,11 @@ class ImagineController
      *
      * @param string $path
      * @param string $filter
+     * @param boolean $refilter
      *
      * @return Response
      */
-    public function filter($path, $filter)
+    public function filter($path, $filter, $refilter = false)
     {
         $path = '/'.ltrim($path, '/');
 
@@ -104,7 +105,7 @@ class ImagineController
 
         // if the file has already been cached, we're probably not rewriting
         // correctly, hence make a 301 to proper location, so browser remembers
-        if (file_exists($realPath)) {
+        if (!$refilter && file_exists($realPath)) {
             return new Response('', 301, array(
                 'location' => $this->request->getBasePath().$browserPath
             ));
@@ -142,5 +143,36 @@ class ImagineController
             ob_end_clean();
             throw $e;
         }
+    }
+
+
+
+    /**
+     * This action invalidates all filters of a given image
+     *
+     * @param string $path
+     * @param string $filter
+     *
+     * @return Response
+     */
+    public function invalidate($imagePath, $filterFilter = array()){
+      foreach ($this->filterManager->getFilters() as $filterName => $filter){
+        if(count($filterFilter) > 0 && !in_array($filterName, $filterFilter)){
+          continue;
+        }
+        $path = '/'.ltrim($imagePath, '/');
+
+        //TODO: find out why I need double urldecode to get a valid path
+        $browserPath = urldecode(urldecode($this->cachePathResolver->getBrowserPath($path, $filterName)));
+        $basePath = $this->request->getBaseUrl();
+        //remove e.g. app_dev.php
+        if (!empty($basePath) && 0 === strpos($browserPath, $basePath)) {
+          $browserPath = substr($browserPath, strlen($basePath));
+        }
+        $path = realpath($this->webRoot.$browserPath);
+        if (is_file($path)) {
+          unlink($path);
+        }
+      }
     }
 }
