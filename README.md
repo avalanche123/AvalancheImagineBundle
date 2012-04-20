@@ -127,6 +127,19 @@ avalanche_imagine:
             options: { size: [120, 90], mode: outbound }
 ```
 
+You can also change the quality and the format you want to use to save our image : 
+
+
+``` yaml
+# app/config/config.yml
+
+avalanche_imagine:
+    filters:
+        my_thumb:
+            type:    thumbnail
+            options: { size: [120, 90], mode: outbound, quality: 100, format: png }
+```
+
 You've now defined a filter called `my_thumb` that performs a thumbnail transformation.
 We'll learn more about available transformations later, but for now, this
 new filter can be used immediately in a template:
