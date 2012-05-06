@@ -41,20 +41,24 @@ class FilterManager
                 'Filter type for "%s" image filter must be specified', $filter
             ));
         }
-
+        
+        /*
         if (!isset($this->loaders[$options['type']])) {
             throw new InvalidArgumentException(sprintf(
                 'Could not find loader for "%s" filter type', $options['type']
             ));
         }
-
+        */
+        /*
         if (!isset($options['options'])) {
             throw new InvalidArgumentException(sprintf(
                 'Options for filter type "%s" must be specified', $filter
             ));
         }
+        */
 
-        return $this->loaders[$options['type']]->load($options['options']);
+        //return $this->loaders[$options['type']]->load($options['options']);
+        return $this->loaders['basicfilters']->load($options);
     }
     
     public function getOption($filter, $name, $default = null) {
