@@ -9,7 +9,7 @@ use Imagine\Image\ManipulatorInterface;
 
 use Imagine\Exception\InvalidArgumentException;
 
-class BasicFiltersFilterLoader implements LoaderInterface
+class BasicFiltersLoader implements LoaderInterface
 {
     public function load(array $options = array())
     {
