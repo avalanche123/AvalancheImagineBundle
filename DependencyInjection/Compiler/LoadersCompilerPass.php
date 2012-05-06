@@ -17,7 +17,7 @@ class LoadersCompilerPass implements CompilerPassInterface
         $manager = $container->getDefinition('imagine.filter.manager');
 
         foreach ($container->findTaggedServiceIds('imagine.filter.loader') as $id => $tags) {
-            foreach ($tags as $id => $tag) {
+            foreach ($tags as $tag) {
                 if (empty($tag['filter'])) {
                     throw new \InvalidArgumentException(sprintf('The "filter" attribute is missing for the service "%s"', $id));
                 }
