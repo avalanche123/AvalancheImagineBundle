@@ -110,7 +110,7 @@ class ImagineController
             ));
         }
 
-        if (!file_exists($sourcePath)) {
+        if (!fopen($sourcePath, "r")) {
             throw new NotFoundHttpException(sprintf(
                 'Source image not found in "%s"', $sourcePath
             ));
