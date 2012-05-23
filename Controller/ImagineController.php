@@ -110,11 +110,12 @@ class ImagineController
             ));
         }
 
-        if (!file_exists($sourcePath)) {
-            throw new NotFoundHttpException(sprintf(
-                'Source image not found in "%s"', $sourcePath
-            ));
-        }
+        $path_is_local = false === stripos($sourcePath,'http://');
+
+    	if ((!$path_is_local && !preg_match('~HTTP/1\.\d\s+200\s+OK~', @current(get_headers($sourcePath)))) ||
+			($path_is_local && !is_file($sourcePath))) {															
+			throw new InvalidArgumentException(sprintf('File %s doesn\'t exist', $sourcePath));
+		}
 
         $dir = pathinfo($realPath, PATHINFO_DIRNAME);
 
