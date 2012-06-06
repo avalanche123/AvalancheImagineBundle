@@ -26,7 +26,7 @@ class AvalancheImagineExtension extends Extension
             $driver = strtolower($config['driver']);
         }
 
-        if (!in_array($driver, array('gd', 'imagick'))) {
+        if (!in_array($driver, array('gd', 'imagick', 'gmagick'))) {
             throw new \InvalidArgumentException('Invalid imagine driver specified');
         }
 
