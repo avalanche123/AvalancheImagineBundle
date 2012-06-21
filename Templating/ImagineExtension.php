@@ -38,12 +38,13 @@ class ImagineExtension extends \Twig_Extension
      *
      * @param string $path
      * @param string $filter
+     * @param boolean $absolute
      *
      * @return string
      */
-    public function applyFilter($path, $filter)
+    public function applyFilter($path, $filter, $absolute = false)
     {
-        return $this->cachePathResolver->getBrowserPath($path, $filter);
+        return $this->cachePathResolver->getBrowserPath($path, $filter, $absolute);
     }
 
     /**
