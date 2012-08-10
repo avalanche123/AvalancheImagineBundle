@@ -53,6 +53,7 @@ class ImagineExtension extends \Twig_Extension
             $absolute = false;
         }
         $filter = implode('.', $args);
+        $filter = preg_replace('/,\s*/', '.', $filter);
         return $this->cachePathResolver->getBrowserPath($path, $filter, $absolute);
     }
 

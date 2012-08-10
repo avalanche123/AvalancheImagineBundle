@@ -154,11 +154,13 @@ Or if you're using PHP templates:
 <img src="<?php $this['imagine']->filter('/relative/path/to/image.jpg', 'my_thumb') ?>" />
 ```
 
-It's also possible to apply multiple filters by passing additional arguments
+It's also possible to apply multiple filters by passing additional arguments or
+by joining them into a single string with commas and optional whitespace
 (for example to make a thumbnail and rotate it):
 
 ``` jinja
 <img src="{{ '/relative/path/to/image.jpg' | apply_filter('my_thumb', 'my_other_filter') }}" />
+<img src="{{ '/relative/path/to/image.jpg' | apply_filter('my_thumb, my_other_filter') }}" />
 ```
 
 Behind the scenes, the bundle applies the filter(s) to the image on the first
