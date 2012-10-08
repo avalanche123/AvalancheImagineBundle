@@ -28,7 +28,7 @@ class ImagineController
     private $imagine;
 
     /**
-     * @var Avalanche\Bundle\ImagineBundle\Imagine\FilterManager
+     * @var Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager
      */
     private $filterManager;
 
@@ -47,12 +47,12 @@ class ImagineController
     /**
      * Constructs by setting $cachePathResolver
      *
-     * @param Symfony\Component\HttpFoundation\Request                 $request
-     * @param Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver $cachePathResolver
-     * @param Imagine\Image\ImagineInterface                           $imagine
-     * @param Avalanche\Bundle\ImagineBundle\Imagine\FilterManager     $filterManager
-     * @param Symfony\Component\Filesystem\Filesystem                  $filesystem
-     * @param string                                                   $webRoot
+     * @param Symfony\Component\HttpFoundation\Request                     $request
+     * @param Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver     $cachePathResolver
+     * @param Imagine\Image\ImagineInterface                               $imagine
+     * @param Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager  $filterManager
+     * @param Symfony\Component\Filesystem\Filesystem                      $filesystem
+     * @param string                                                       $webRoot
      */
     public function __construct(
         Request $request,
