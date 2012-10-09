@@ -132,8 +132,9 @@ class ImagineController
             $this->filterManager->get($filter)
                 ->apply($this->imagine->open($sourcePath))
                 ->save($realPath, array(
-                    'quality' => $this->filterManager->getOption($filter, "quality", 100)),
-                    'format' => $this->filterManager->getOption($filter, "format", null))
+                    'quality' => $this->filterManager->getOption($filter, "quality", 100),
+                    'format' => $this->filterManager->getOption($filter, "format", null)
+                ))
                 ->show($this->filterManager->getOption($filter, "format", "png"));
 
             // TODO: add more media headers
