@@ -141,6 +141,7 @@ class ImagineController
             // TODO: add more media headers
             return new Response(ob_get_clean(), 201, array(
                 'content-type' => 'image/' . $this->filterManager->getOption($filter, "format", "png"),
+                'content-length' => filesize($realPath),
             ));
         } catch (\Exception $e) {
             ob_end_clean();
