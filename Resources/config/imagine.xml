@@ -38,7 +38,7 @@
 
         <!-- Filter loaders' classes -->
 
-        <parameter key="imagine.filter.loader.thumbnail.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\ThumbnailFilterLoader</parameter>
+        <parameter key="imagine.filter.loader.basicfilters.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\BasicFiltersLoader</parameter>
 
     </parameters>
 
@@ -99,8 +99,8 @@
 
         <!-- Filter loaders -->
 
-        <service id="imagine.filter.loader.thumbnail" class="%imagine.filter.loader.thumbnail.class%">
-            <tag name="imagine.filter.loader" filter="thumbnail" />
+        <service id="imagine.filter.loader.basicfilters" class="%imagine.filter.loader.basicfilters.class%">
+            <tag name="imagine.filter.loader" filter="basicfilters" />
         </service>
 
     </services>
