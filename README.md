@@ -16,71 +16,35 @@ This bundle integrates the standalone PHP "[Imagine library](/avalanche123/Imagi
 
 ## Installation
 
-To install this bundle, you'll need both the [Imagine library](/avalanche123/Imagine)
-and this bundle. Installation depends on how your project is setup:
+Installation is a quick 3 step process:
 
-### Step 1: Installation using the `bin/vendors.php` method
+1. Download AvalancheImagineBundle using composer
+2. Enable the Bundle
+3. Configure your application's config.yml
 
-If you're using the `bin/vendors.php` method to manage your vendor libraries,
-add the following entries to the `deps` in the root of your project file:
+### Step 1: Download AvalancheImagineBundle using composer
 
+Add AvalancheImagineBundleAvalancheImagineBundle in your composer.json:
+
+```js
+{
+    "require": {
+        "avalanche123/imagine-bundle": "*"
+    }
+}
 ```
-[Imagine]
-    git=http://github.com/avalanche123/Imagine.git
-    target=imagine
 
-[AvalancheImagineBundle]
-    git=http://github.com/avalanche123/AvalancheImagineBundle.git
-    target=bundles/Avalanche/Bundle/ImagineBundle
-```
-
-**NOTE**: This location and syntax of the `deps` file changed after BETA4. If you're
-using an older version of the deps system, you may need to swap the order of the items
-in the `deps` file.
-
-Next, update your vendors by running:
+Now tell composer to download the bundle by running the command:
 
 ``` bash
-$ ./bin/vendors
+$ php composer.phar update avalanche123/imagine-bundle
 ```
 
-Great! Now skip down to *Step 2*.
+Composer will install the bundle to your project's `vendor/avalanche123/imagine-bundle` directory.
 
-### Step 1 (alternative): Installation with submodules
+### Step 2: Enable the bundle
 
-If you're managing your vendor libraries with submodules, first create the
-`vendor/bundles/Avalanche/Bundle` directory:
-
-``` bash
-$ mkdir -pv vendor/bundles/Avalanche/Bundle
-```
-
-Next, add the two necessary submodules:
-
-``` bash
-$ git submodule add git://github.com/avalanche123/Imagine.git vendor/imagine
-$ git submodule add git://github.com/avalanche123/AvalancheImagineBundle.git vendor/bundles/Avalanche/Bundle/ImagineBundle
-```
-
-### Step2: Configure the autoloader
-
-Add the following entries to your autoloader:
-
-``` php
-<?php
-// app/autoload.php
-
-$loader->registerNamespaces(array(
-    // ...
-
-    'Imagine'          => __DIR__.'/../vendor/imagine/lib',
-    'Avalanche'        => __DIR__.'/../vendor/bundles',
-));
-```
-
-### Step3: Enable the bundle
-
-Finally, enable the bundle in the kernel:
+Enable the bundle in the kernel:
 
 ``` php
 <?php
@@ -90,13 +54,11 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-
         new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
     );
 }
 ```
-
-### Step4: Register the bundle's routes
+### Step3: Register the bundle's routes
 
 Finally, add the following to your routing file:
 
