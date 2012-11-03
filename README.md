@@ -24,7 +24,7 @@ Installation is a quick 3 step process:
 
 ### Step 1: Download AvalancheImagineBundle using composer
 
-Add AvalancheImagineBundleAvalancheImagineBundle in your composer.json:
+Add AvalancheImagineBundle in your composer.json:
 
 ```js
 {
