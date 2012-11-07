@@ -39,6 +39,7 @@
         <!-- Filter loaders' classes -->
 
         <parameter key="imagine.filter.loader.thumbnail.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\ThumbnailFilterLoader</parameter>
+        <parameter key="liip_imagine.filter.loader.paste.class">Liip\ImagineBundle\Imagine\Filter\Loader\PasteFilterLoader</parameter>
 
     </parameters>
 
@@ -101,6 +102,12 @@
 
         <service id="imagine.filter.loader.thumbnail" class="%imagine.filter.loader.thumbnail.class%">
             <tag name="imagine.filter.loader" filter="thumbnail" />
+        </service>
+
+        <service id="liip_imagine.filter.loader.paste" class="%liip_imagine.filter.loader.paste.class%">
+            <tag name="liip_imagine.filter.loader" loader="paste" />
+            <argument type="service" id="liip_imagine" />
+            <argument>%kernel.root_dir%</argument>
         </service>
 
     </services>
