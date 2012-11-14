@@ -5,6 +5,13 @@
     "homepage": "https://github.com/avalanche123/AvalancheImagineBundle",
     "type": "symfony-bundle",
     "license": "MIT",
+    "repositories":[
+        {
+            "type":"git",
+            "url":"git://github.com/avalanche123/Imagine.git"
+        }
+    ],
+
     "authors": [
         {
             "name": "Bulat Shakirzyanov",
