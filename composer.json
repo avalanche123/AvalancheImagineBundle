@@ -5,6 +5,13 @@
     "homepage": "https://github.com/avalanche123/AvalancheImagineBundle",
     "type": "symfony-bundle",
     "license": "MIT",
+    "repositories":[
+        {
+            "type":"git",
+            "url":"git://github.com/avalanche123/Imagine.git"
+        }
+    ],
+
     "authors": [
         {
             "name": "Bulat Shakirzyanov",
@@ -14,7 +21,7 @@
     ],
     "require": {
         "symfony/framework-bundle": "2.*",
-        "imagine/Imagine": "dev-master"
+        "imagine/Imagine": "v2.1"
     },
     "suggest": {
         "symfony/twig-bundle": "2.*"
