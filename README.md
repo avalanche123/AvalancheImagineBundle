@@ -116,14 +116,6 @@ Or if you're using PHP templates:
 <img src="<?php $this['imagine']->filter('/relative/path/to/image.jpg', 'my_thumb') ?>" />
 ```
 
-It's also possible to apply multiple filters by passing additional arguments or
-by joining them into a single string with commas and optional whitespace
-(for example to make a thumbnail and rotate it):
-
-``` jinja
-<img src="{{ '/relative/path/to/image.jpg' | apply_filter('my_thumb', 'my_other_filter') }}" />
-<img src="{{ '/relative/path/to/image.jpg' | apply_filter('my_thumb, my_other_filter') }}" />
-```
 
 Behind the scenes, the bundle applies the filter(s) to the image on the first
 request and then caches the image to a similar path. On the next request,
@@ -179,7 +171,7 @@ Each filter that you specify have the following options:
 
  - `type` - determine the type of filter to be used, refer to *Filters* section for more information
  - `options` - options that should be passed to the specific filter type
- - `path` - override the global `cache_prefix` and replace it with this path (this option is not compatible with applying multiple filters)
+ - `path` - override the global `cache_prefix` and replace it with this path
 
 ## Built-in Filters
 
