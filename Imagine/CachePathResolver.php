@@ -46,13 +46,25 @@ class CachePathResolver
             return $path;
         }
 
+        $url = $this->router->getRouteCollection()->get('_imagine_'.$filter) ?
+            $this->router->generate('_imagine_'.$filter, array(
+                'path' => ltrim($path, '/')
+            ),$absolute) :
+            $this->router->generate('_imagine', array(
+                'filter' => $filter,
+                'path' => ltrim($path, '/')
+            ),$absolute);
         $path = str_replace(
             urlencode(ltrim($path, '/')),
             urldecode(ltrim($path, '/')),
-            $this->router->generate('_imagine_'.$filter, array(
-                'path' => ltrim($path, '/')
-            ),$absolute)
+            $url
         );
+        
+        $cached = realpath($this->webRoot.$path);
+
+        if (file_exists($cached) && filemtime($realPath) > filemtime($cached)) {
+            unlink($cached);
+        }
 
         return $path;
     }

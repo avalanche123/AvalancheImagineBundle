@@ -28,7 +28,7 @@ class ImagineController
     private $imagine;
 
     /**
-     * @var Avalanche\Bundle\ImagineBundle\Imagine\FilterManager
+     * @var Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager
      */
     private $filterManager;
 
@@ -47,12 +47,12 @@ class ImagineController
     /**
      * Constructs by setting $cachePathResolver
      *
-     * @param Symfony\Component\HttpFoundation\Request                 $request
-     * @param Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver $cachePathResolver
-     * @param Imagine\Image\ImagineInterface                           $imagine
-     * @param Avalanche\Bundle\ImagineBundle\Imagine\FilterManager     $filterManager
-     * @param Symfony\Component\Filesystem\Filesystem                  $filesystem
-     * @param string                                                   $webRoot
+     * @param Symfony\Component\HttpFoundation\Request                     $request
+     * @param Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver     $cachePathResolver
+     * @param Imagine\Image\ImagineInterface                               $imagine
+     * @param Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager  $filterManager
+     * @param Symfony\Component\Filesystem\Filesystem                      $filesystem
+     * @param string                                                       $webRoot
      */
     public function __construct(
         Request $request,
@@ -128,17 +128,25 @@ class ImagineController
 
         ob_start();
         try {
+            $format  = $this->filterManager->getOption($filter, "format", "png");
+
             // TODO: get rid of hard-coded quality and format
             $this->filterManager->get($filter)
                 ->apply($this->imagine->open($sourcePath))
                 ->save($realPath, array(
                     'quality' => $this->filterManager->getOption($filter, "quality", 100),
-                    'format' => $this->filterManager->getOption($filter, "format", null)))
-                ->show($this->filterManager->getOption($filter, "format", "png"));
+                    'format'  => $this->filterManager->getOption($filter, "format", null)
+                ))
+                ->show($format);
+
+            $type    = 'image/' . $format;
+            $length  = ob_get_length();
+            $content = ob_get_clean();
 
             // TODO: add more media headers
-            return new Response(ob_get_clean(), 201, array(
-                'content-type' => 'image/' . $this->filterManager->getOption($filter, "format", "png"),
+            return new Response($content, 201, array(
+                'content-type'   => $type,
+                'content-length' => $length,
             ));
         } catch (\Exception $e) {
             ob_end_clean();

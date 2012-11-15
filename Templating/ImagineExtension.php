@@ -42,8 +42,18 @@ class ImagineExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function applyFilter($path, $filter, $absolute = false)
+    public function applyFilter()
     {
+        $args = func_get_args();
+        $path = array_shift($args);
+        if (is_bool(end($args))) {
+            $absolute = array_pop($args);
+        }
+        else {
+            $absolute = false;
+        }
+        $filter = implode('.', $args);
+        $filter = preg_replace('/,\s*/', '.', $filter);
         return $this->cachePathResolver->getBrowserPath($path, $filter, $absolute);
     }
 
