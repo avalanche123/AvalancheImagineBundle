@@ -76,10 +76,31 @@ class ImagineController
             $content = ob_get_clean();
 
             // TODO: add more media headers
-            return new Response($content, 201, array(
+            $response = new Response($content, 201, array(
                 'content-type'   => $type,
                 'content-length' => $length,
             ));
+
+            // Cache
+            $cacheType = $this->filterManager->getOption($filter, "cache_type", false);
+            if (false == $cacheType) {
+                return $response;
+            }
+
+            ($cacheType === "public") ? $response->setPublic() : $response->setPrivate();
+
+            $cacheExpires = $this->filterManager->getOption($filter, "cache_expires", "1 day");
+            $expirationDate = new \DateTime("+" . $cacheExpires);
+            $maxAge = $expirationDate->format("U") - time();
+
+            if ($maxAge < 0) {
+                throw new \InvalidArgumentException("Invalid cache expiration date");
+            }
+
+            $response->setExpires($expirationDate);
+            $response->setMaxAge($maxAge);
+
+            return $response;
         } catch (\Exception $e) {
             ob_end_clean();
             throw $e;
