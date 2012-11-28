@@ -125,6 +125,43 @@ In this example, the final rendered path would be something like
 `/media/cache/my_thumb/relative/path/to/image.jpg`. This is where Imagine
 would save the filtered image file.
 
+## HTTP Cache Headers
+
+ - `cache_type` - one of the three values: `false`, `public` or `private`.
+    Setting `false` disables caching i.e. sets `Cache-Control: no-cache`.
+
+    default: `false`
+
+ - `cache_expires` - Sets time when cache expires. Uses format that the `DateTime`
+    parser understands. Expression will be prefixed with `+` so expression
+    should be like `2 weeks`. Used only when `cache_type` equal `public` or `private`.
+
+    default: `1 day`
+
+Configuration example:
+
+``` yaml
+# app/config/config.yml
+
+avalanche_imagine:
+    filters:
+        my_thumb:
+            type:    thumbnail
+            options: { size: [120, 90], mode: outbound, cache_type: public, cache_expires: 2 weeks }
+```
+
+Cache headers are set only for first request when image is generated.
+To solve this issue you should add additional configuration for your web server.
+Example for apache web server:
+```apache
+<IfModule mod_expires.c>
+    <Directory "/path/to/web/media/cache">
+        ExpiresActive On
+        ExpiresDefault "access plus 2 weeks"
+    </Directory>
+</IfModule>
+```
+
 ## Configuration
 
 The default configuration for the bundle looks like this:
