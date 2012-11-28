@@ -220,3 +220,19 @@ filters:
 
 For an example of a filter loader implementation, refer to
 `Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\ThumbnailFilterLoader`.
+
+## Caveats
+
+If you are generating your image names from multiple parts in a Twig template,
+please be aware that Twig applies filters __before__ concatenation, so
+
+``` jinja
+<img src="{{ '/relative/path/to/' ~ some_variable ~ '.jpg' | apply_filter('my_thumb') }}" />
+```
+
+will apply your filter to '.jpg', and then concatenate the result to
+`'/relative/path/to/'` and `some_variable`. So the correct invocation would be
+
+``` jinja
+<img src="{{ ('/relative/path/to/' ~ some_variable ~ '.jpg') | apply_filter('my_thumb') }}" />
+```
