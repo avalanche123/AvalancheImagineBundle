@@ -41,6 +41,10 @@
 
         <parameter key="imagine.filter.loader.thumbnail.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\ThumbnailFilterLoader</parameter>
 
+        <parameter key="imagine.filter.loader.relative_resize.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\RelativeResizeFilterLoader</parameter>
+
+        <parameter key="imagine.filter.loader.resize.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\ResizeFilterLoader</parameter>
+
     </parameters>
 
     <services>
@@ -108,6 +112,14 @@
 
         <service id="imagine.filter.loader.thumbnail" class="%imagine.filter.loader.thumbnail.class%">
             <tag name="imagine.filter.loader" filter="thumbnail" />
+        </service>
+
+        <service id="imagine.filter.loader.relative_resize" class="%imagine.filter.loader.relative_resize.class%">
+            <tag name="imagine.filter.loader" filter="relative_resize" />
+        </service>
+
+        <service id="imagine.filter.loader.resize" class="%imagine.filter.loader.resize.class%">
+            <tag name="imagine.filter.loader" filter="resize" />
         </service>
 
     </services>
