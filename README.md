@@ -214,10 +214,10 @@ Each filter that you specify have the following options:
 
 Currently, this bundles comes with just one built-in filter: `thumbnail`.
 
-### The `thumbnail` filter
+### Thumbnail
 
-The thumbnail filter, as the name implies, performs a thumbnail transformation
-on your image. Configuration looks like this:
+The `thumbnail` filter, as the name implies, performs a thumbnail transformation
+on your image. The configuration looks like this:
 
 ``` yaml
 filters:
