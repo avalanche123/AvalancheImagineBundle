@@ -276,6 +276,43 @@ avalanche_imagine:
 If you prefer using Imagine without a filter configuration, the `RelativeResize`
 class may be used directly.
 
+### Paste
+
+The `paste` filter pastes an image into your image.
+
+``` yaml
+avalanche_imagine:
+    filters:
+        paste:
+            type:        paste
+            options:
+                image:   %kernel.root_dir%/Resources/image.png  # path to image
+                x:       right                                  # [left|right|center] or integer
+                y:       bottom                                 # [top|bottom|middle] or integer
+```
+
+### Chain
+
+With `chain` filter you can apply some filters on your image.
+You can quite simply create a `watermark` filter:
+
+``` yaml
+avalanche_imagine:
+    filters:
+        watermark:
+            type:                chain
+            options:
+                filters:
+                    imagine.filter.loader.thumbnail:                    # service name
+                        size:    [100, 100]                             # filter options
+                        mode:    outbound
+                    imagine.filter.loader.paste:
+                        image:   %kernel.root_dir%/Resources/image.png
+                        x:       right
+                        y:       bottom
+
+```
+
 ## Load your Custom Filters
 
 The ImagineBundle allows you to load your own custom filter classes. The only
