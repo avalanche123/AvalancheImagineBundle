@@ -45,6 +45,8 @@
 
         <parameter key="imagine.filter.loader.resize.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\ResizeFilterLoader</parameter>
 
+        <parameter key="imagine.filter.loader.paste.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\PasteFilterLoader</parameter>
+
     </parameters>
 
     <services>
@@ -120,6 +122,11 @@
 
         <service id="imagine.filter.loader.resize" class="%imagine.filter.loader.resize.class%">
             <tag name="imagine.filter.loader" filter="resize" />
+        </service>
+
+        <service id="imagine.filter.loader.paste" class="%imagine.filter.loader.paste.class%">
+            <argument type="service" id="imagine" />
+            <tag name="imagine.filter.loader" filter="paste" />
         </service>
 
     </services>

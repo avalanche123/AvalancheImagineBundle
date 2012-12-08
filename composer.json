@@ -23,6 +23,9 @@
         "symfony/framework-bundle": "2.*",
         "imagine/Imagine": "v0.3.0"
     },
+    "require-dev": {
+        "makasim/temp-file": "dev-master"
+    },
     "suggest": {
         "symfony/twig-bundle": "2.*"
     },
