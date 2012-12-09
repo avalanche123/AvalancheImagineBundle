@@ -303,10 +303,10 @@ avalanche_imagine:
             type:                chain
             options:
                 filters:
-                    imagine.filter.loader.thumbnail:                    # service name
+                    thumbnail:                                          # filter type
                         size:    [100, 100]                             # filter options
                         mode:    outbound
-                    imagine.filter.loader.paste:
+                    paste:
                         image:   %kernel.root_dir%/Resources/image.png
                         x:       right
                         y:       bottom

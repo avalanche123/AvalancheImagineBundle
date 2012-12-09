@@ -1,22 +1,22 @@
 <?php
 namespace Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager;
 use Avalanche\Bundle\ImagineBundle\Imagine\Filter\ChainFilter;
 
 class ChainFilterLoader implements LoaderInterface
 {
     /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     * @var \Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager
      */
-    protected $container;
+    protected $filterManager;
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param \Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager $filterManager
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(FilterManager $filterManager)
     {
-        $this->container = $container;
+        $this->filterManager = $filterManager;
     }
 
     /**
@@ -36,11 +36,7 @@ class ChainFilterLoader implements LoaderInterface
 
         foreach ($options['filters'] as $loaderName => $loaderOptions) {
 
-            $loader = $this->container->get($loaderName);
-
-            if (false == ($loader instanceof LoaderInterface)) {
-                throw new \InvalidArgumentException('Instance of "Avalanche\\Bundle\\ImagineBundle\\Imagine\\Filter\\Loader\\LoaderInterface" expected');
-            }
+            $loader = $this->filterManager->getLoader($loaderName);
 
             $loaderOptions = is_array($loaderOptions) ? $loaderOptions : array();
 

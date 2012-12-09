@@ -132,7 +132,7 @@
         </service>
 
         <service id="imagine.filter.loader.chain" class="%imagine.filter.loader.chain.class%">
-            <argument type="service" id="service_container" />
+            <argument type="service" id="imagine.filter.manager" />
             <tag name="imagine.filter.loader" filter="chain" />
         </service>
 
