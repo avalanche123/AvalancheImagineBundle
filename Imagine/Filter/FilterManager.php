@@ -3,9 +3,7 @@
 namespace Avalanche\Bundle\ImagineBundle\Imagine\Filter;
 
 use Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
-
 use Imagine\Exception\InvalidArgumentException;
-use Imagine\Filter\FilterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class FilterManager
@@ -26,7 +24,28 @@ class FilterManager
         $this->loaders[$name] = $loader;
     }
 
-    public function get($filter)
+    /**
+     * @param string $name
+     * @return \Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\LoaderInterface
+     * @throws \Imagine\Exception\InvalidArgumentException
+     */
+    public function getLoader($name)
+    {
+        if (!isset($this->loaders[$name])) {
+            throw new InvalidArgumentException(sprintf(
+                'Could not find loader for "%s" filter type', $name
+            ));
+        }
+
+        return $this->loaders[$name];
+    }
+
+    /**
+     * @param string $filter
+     * @return \Imagine\Filter\FilterInterface
+     * @throws \Imagine\Exception\InvalidArgumentException
+     */
+    public function getFilter($filter)
     {
         if (!isset($this->filters[$filter])) {
             throw new InvalidArgumentException(sprintf(
@@ -42,21 +61,15 @@ class FilterManager
             ));
         }
 
-        if (!isset($this->loaders[$options['type']])) {
-            throw new InvalidArgumentException(sprintf(
-                'Could not find loader for "%s" filter type', $options['type']
-            ));
-        }
-
         if (!isset($options['options'])) {
             throw new InvalidArgumentException(sprintf(
                 'Options for filter type "%s" must be specified', $filter
             ));
         }
 
-        return $this->loaders[$options['type']]->load($options['options']);
+        return $this->getLoader($options['type'])->load($options['options']);
     }
-    
+
     public function getOption($filter, $name, $default = null) {
         
         $options = $this->filters[$filter];
