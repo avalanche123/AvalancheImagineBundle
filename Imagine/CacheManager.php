@@ -84,7 +84,7 @@ class CacheManager
         }
 
         // TODO: get rid of hard-coded quality and format
-        $this->filterManager->get($filter)
+        $this->filterManager->getFilter($filter)
             ->apply($this->imagine->open($sourcePath))
             ->save($realPath, array(
                 'quality' => $this->filterManager->getOption($filter, "quality", 100),
