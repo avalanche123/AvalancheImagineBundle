@@ -2,8 +2,8 @@
 
 namespace Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader;
 
-use Avalanche\Bundle\ImagineBundle\Imagine\Filter\RelativeResize;
 use Imagine\Exception\InvalidArgumentException;
+use Imagine\Filter\Advanced\RelativeResize;
 
 class RelativeResizeFilterLoader implements LoaderInterface
 {
