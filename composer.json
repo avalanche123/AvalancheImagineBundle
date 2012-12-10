@@ -21,7 +21,7 @@
     ],
     "require": {
         "symfony/framework-bundle": "2.*",
-        "imagine/Imagine": "v0.3.0"
+        "imagine/Imagine": "v0.4.0"
     },
     "require-dev": {
         "makasim/temp-file": "dev-master"
