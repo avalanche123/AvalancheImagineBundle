@@ -358,3 +358,15 @@ will apply your filter to '.jpg', and then concatenate the result to
 ``` jinja
 <img src="{{ ('/relative/path/to/' ~ some_variable ~ '.jpg') | apply_filter('my_thumb') }}" />
 ```
+
+## Using as a service
+
+You can also use ImagineBundle as a service and create the cache image from controller.
+```php
+$avalancheService = $this->get('imagine.cache.path.resolver');
+```
+
+Then, call the getBrowserPath and pass the original image webpath and the filter you want to use
+```php
+$cachedImage = $avalancheService->getBrowserPath($object->getWebPath(), 'speciality_300300');
+```
