@@ -368,5 +368,5 @@ $avalancheService = $this->get('imagine.cache.path.resolver');
 
 Then, call the getBrowserPath and pass the original image webpath and the filter you want to use
 ```php
-$cachedImage = $avalancheService->getBrowserPath($object->getWebPath(), 'speciality_300300');
+$cachedImage = $avalancheService->getBrowserPath($object->getWebPath(), 'my_thumb');
 ```
