@@ -41,6 +41,9 @@ class CachePathResolver
         // identify if current path is not under specified web root and return
         // unmodified path in that case
         $realPath = realpath($this->webRoot.$path);
+        if (!is_file($realPath)) {
+            return null;
+        }
 
         if (!0 === strpos($realPath, $this->webRoot)) {
             return $path;
