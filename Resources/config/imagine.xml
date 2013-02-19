@@ -52,7 +52,7 @@
     </parameters>
 
     <services>
-        
+
         <!-- Utility services -->
 
         <service id="imagine.cache.path.resolver" class="%imagine.cache.path.resolver.class%">
@@ -91,8 +91,8 @@
         </service>
 
         <!-- ImagineInterface instances -->
-        
-        <service id="imagine" alias="imagine.gd" /> 
+
+        <service id="imagine" alias="imagine.gd" />
 
         <service id="imagine.gd" class="%imagine.gd.class%" />
 
@@ -105,11 +105,13 @@
         <service id="imagine.twig.extension" class="%imagine.twig.extension.class%" public="false">
             <tag name="twig.extension" />
             <argument type="service" id="imagine.cache.path.resolver" />
+            <argument>%imagine.web_root%</argument>
         </service>
 
         <service id="imagine.templating.helper" class="%imagine.templating.helper.class%">
             <tag name="templating.helper" alias="imagine" />
             <argument type="service" id="imagine.cache.path.resolver" />
+            <argument>%imagine.web_root%</argument>
         </service>
 
         <!-- Filter loaders -->
