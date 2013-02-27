@@ -49,12 +49,15 @@ class CacheManager
     {
         $path = '/'.ltrim($path, '/');
 
+
+
         //TODO: find out why I need double urldecode to get a valid path
         $browserPath = urldecode(urldecode($this->cachePathResolver->getBrowserPath($path, $filter)));
 
         if (!empty($basePath) && 0 === strpos($browserPath, $basePath)) {
              $browserPath = substr($browserPath, strlen($basePath));
         }
+
 
          // if cache path cannot be determined, return 404
         if (null === $browserPath) {
@@ -64,26 +67,37 @@ class CacheManager
         $realPath = $this->webRoot.$browserPath;
         $sourcePath = $this->sourceRoot.$path;
 
+
+
         // if the file has already been cached, just return path
         if (file_exists($realPath)) {
             return $realPath;
         }
 
-        if (!file_exists($sourcePath)) {
+
+    	if (!file_exists($sourcePath)) {
             return null;
         }
 
+
         $dir = pathinfo($realPath, PATHINFO_DIRNAME);
 
-        if (!is_dir($dir)) {
+
+
+		if (!$this->is_dir($dir)) {
+
             if (false === $this->filesystem->mkdir($dir)) {
+
                 throw new \RuntimeException(sprintf(
                     'Could not create directory %s', $dir
                 ));
             }
+
         }
 
         // TODO: get rid of hard-coded quality and format
+
+
         $this->filterManager->getFilter($filter)
             ->apply($this->imagine->open($sourcePath))
             ->save($realPath, array(
@@ -94,4 +108,14 @@ class CacheManager
         
         return $realPath;
     }
+
+	/**
+	 * en reemplazo de is_dir que no funciona bien
+	 * @param $path
+	 *
+	 * @return bool
+	 */
+	function is_dir($path){
+		return (('d'==substr(exec("ls -dl '$path'"),0,1))?(true):(false));
+	}
 }
