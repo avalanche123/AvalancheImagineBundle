@@ -49,6 +49,8 @@
 
         <parameter key="imagine.filter.loader.chain.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\ChainFilterLoader</parameter>
 
+        <parameter key="imagine.filter.loader.crop.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\CropFilterLoader</parameter> 
+        
     </parameters>
 
     <services>
@@ -134,6 +136,10 @@
         <service id="imagine.filter.loader.chain" class="%imagine.filter.loader.chain.class%">
             <argument type="service" id="imagine.filter.manager" />
             <tag name="imagine.filter.loader" filter="chain" />
+        </service>
+        
+        <service id="imagine.filter.loader.crop" class="%imagine.filter.loader.crop.class%">
+            <tag name="imagine.filter.loader" filter="crop" />
         </service>
 
     </services>
