@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Avalanche\Bundle\ImagineBundle\Imagine\CacheManager;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class ImagineController
 {
