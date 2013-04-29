@@ -12,6 +12,9 @@
         <parameter key="imagine.cache_prefix">media/cache</parameter>
         <parameter key="imagine.filters" type="collection" />
 
+        <!-- Assetic classes -->
+        <parameter key="imagine.assetic.filter.class">Avalanche\Bundle\ImagineBundle\Assetic\Filter\ImagineFilter</parameter>
+
         <!-- Utility classes -->
 
         <parameter key="imagine.filter.manager.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager</parameter>
@@ -52,7 +55,14 @@
     </parameters>
 
     <services>
-        
+
+        <!-- Assetic service -->
+        <service id="imagine.assetic.filter" class="%imagine.assetic.filter.class%" abstract="true">
+            <argument type="service" id="imagine" />
+            <argument type="service" id="imagine.filter.manager" />
+            <argument/>
+        </service>
+
         <!-- Utility services -->
 
         <service id="imagine.cache.path.resolver" class="%imagine.cache.path.resolver.class%">
