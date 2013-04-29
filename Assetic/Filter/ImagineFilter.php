@@ -79,9 +79,8 @@ class ImagineFilter implements FilterInterface
                 ->show($format);
 
             $asset->setContent(ob_get_clean());
-            ob_end_clean();
         } catch (\Exception $e) {
-            ob_end_clean();
+            @ob_end_clean();
             throw $e;
         }
     }
