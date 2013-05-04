@@ -18,11 +18,13 @@ class AsseticCompilerPass implements CompilerPassInterface
         $filters = $container->getParameter('imagine.filters');
         $asseticFilterManagerDef = $container->getDefinition('assetic.filter_manager');
         foreach($filters as $name => $options) {
-            $filterName = 'imagine_' . $name;
-            $filterClass = new DefinitionDecorator('imagine.assetic.filter');
-            $filterClass->replaceArgument(2, $name);
-            $container->setDefinition('imagine.assetic.filter.' . $filterName, $filterClass);
-            $asseticFilterManagerDef->addMethodCall('set', array($filterName, new Reference('imagine.assetic.filter.' . $filterName)));
+            if (isset($options['options']) && isset($options['options']['assetic']) && ((bool) $options['options']['assetic'] === true )) {
+                $filterName = 'imagine_' . $name;
+                $filterClass = new DefinitionDecorator('imagine.assetic.filter');
+                $filterClass->replaceArgument(2, $name);
+                $container->setDefinition('imagine.assetic.filter.' . $filterName, $filterClass);
+                $asseticFilterManagerDef->addMethodCall('set', array($filterName, new Reference('imagine.assetic.filter.' . $filterName)));
+            }
         }
     }
 }

@@ -370,3 +370,20 @@ Then, call the getBrowserPath and pass the original image webpath and the filter
 ```php
 $cachedImage = $avalancheService->getBrowserPath($object->getWebPath(), 'my_thumb');
 ```
+
+## Using in combination with assetic
+
+If you want to render static images with assetic, but want to leverage the image manipulation features
+of imagine you can enable on a per filter basis assetic support.
+
+``` yaml
+filters:
+    filtername:
+        options: { assetic: true }
+```
+
+If you enable assetic for a filter the filter will be available as an assetic filter with the imagine filters name,
+prefixed by "imagine_" as in our example "imagine_filtername".
+
+Assetic has some name restriction this restriction apply here too, which means, the filtername
+can only contain A-Z, 0-9 and underscores. This affects only filters with enabled assetic support.
