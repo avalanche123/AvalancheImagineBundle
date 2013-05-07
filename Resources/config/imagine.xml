@@ -49,6 +49,8 @@
 
         <parameter key="imagine.filter.loader.chain.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\ChainFilterLoader</parameter>
 
+        <parameter key="imagine.filter.loader.crop.class">Avalanche\Bundle\ImagineBundle\Imagine\Filter\Loader\CropFilterLoader</parameter> 
+        
     </parameters>
 
     <services>
@@ -75,11 +77,13 @@
 
         <!-- Controller -->
 
-        <service id="imagine.controller" class="%imagine.controller.class%" scope="request">
-            <argument type="service" id="request" />
+        <service id="imagine.controller" class="%imagine.controller.class%">
             <argument type="service" id="imagine" />
             <argument type="service" id="imagine.cache.manager" />
             <argument type="service" id="imagine.filter.manager" />
+			<call method="setRequest">
+				<argument type="service" id="request" on-invalid="null" strict="false" />
+			</call>
         </service>
 
         <!-- Route Loader -->
@@ -134,6 +138,10 @@
         <service id="imagine.filter.loader.chain" class="%imagine.filter.loader.chain.class%">
             <argument type="service" id="imagine.filter.manager" />
             <tag name="imagine.filter.loader" filter="chain" />
+        </service>
+        
+        <service id="imagine.filter.loader.crop" class="%imagine.filter.loader.crop.class%">
+            <tag name="imagine.filter.loader" filter="crop" />
         </service>
 
     </services>

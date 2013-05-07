@@ -313,6 +313,18 @@ avalanche_imagine:
 
 ```
 
+### Crop
+
+The `crop` filter crop an image with start coordinate, and size dimension.
+
+``` yaml
+avalanche_imagine:
+    filters:
+        crop:
+            type   : crop
+            options: { start: [0, 0], size: [100, 100] } #crop image with 100x100 square box
+```
+
 ## Load your Custom Filters
 
 The ImagineBundle allows you to load your own custom filter classes. The only
