@@ -56,7 +56,7 @@ class CachePathResolver
         
         $cached = realpath($this->webRoot.$path);
 
-        if (file_exists($cached) && filemtime($realPath) > filemtime($cached)) {
+        if (file_exists($cached) && !is_dir($cached) && filemtime($realPath) > filemtime($cached)) {
             unlink($cached);
         }
 
