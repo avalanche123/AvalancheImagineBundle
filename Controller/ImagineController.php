@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Avalanche\Bundle\ImagineBundle\Imagine\CacheManager;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class ImagineController
 {
@@ -39,9 +40,8 @@ class ImagineController
      * @param CacheManager     $cacheManager
      * @param FilterManager    $filterManager
      */
-    public function __construct(Request $request, ImagineInterface $imagine, CacheManager $cacheManager, FilterManager $filterManager)
+    public function __construct(ImagineInterface $imagine, CacheManager $cacheManager, FilterManager $filterManager)
     {
-        $this->request = $request;
         $this->imagine = $imagine;
         $this->cacheManager = $cacheManager;
         $this->filterManager = $filterManager;
@@ -58,7 +58,11 @@ class ImagineController
      */
     public function filter($path, $filter)
     {
-        $cachedPath = $this->cacheManager->cacheImage($this->request->getBaseUrl(), $path, $filter);
+        try {
+            $cachedPath = $this->cacheManager->cacheImage($this->request->getBaseUrl(), $path, $filter);
+        } catch (RouteNotFoundException $e) {
+            throw new NotFoundHttpException('Filter doesn\'t exist.');
+        }
         
          // if cache path cannot be determined, return 404
         if (null === $cachedPath) {
@@ -106,4 +110,14 @@ class ImagineController
             throw $e;
         }
     }
+
+	/**
+	 * Set the request
+	 *
+	 * @param Request $request
+	 */
+	public function setRequest(Request $request = null)
+	{
+		$this->request = $request;
+	}
 }
