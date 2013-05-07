@@ -39,9 +39,8 @@ class ImagineController
      * @param CacheManager     $cacheManager
      * @param FilterManager    $filterManager
      */
-    public function __construct(Request $request, ImagineInterface $imagine, CacheManager $cacheManager, FilterManager $filterManager)
+    public function __construct(ImagineInterface $imagine, CacheManager $cacheManager, FilterManager $filterManager)
     {
-        $this->request = $request;
         $this->imagine = $imagine;
         $this->cacheManager = $cacheManager;
         $this->filterManager = $filterManager;
@@ -106,4 +105,14 @@ class ImagineController
             throw $e;
         }
     }
+
+	/**
+	 * Set the request
+	 *
+	 * @param Request $request
+	 */
+	public function setRequest(Request $request = null)
+	{
+		$this->request = $request;
+	}
 }
