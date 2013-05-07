@@ -77,11 +77,13 @@
 
         <!-- Controller -->
 
-        <service id="imagine.controller" class="%imagine.controller.class%" scope="request">
-            <argument type="service" id="request" />
+        <service id="imagine.controller" class="%imagine.controller.class%">
             <argument type="service" id="imagine" />
             <argument type="service" id="imagine.cache.manager" />
             <argument type="service" id="imagine.filter.manager" />
+			<call method="setRequest">
+				<argument type="service" id="request" on-invalid="null" strict="false" />
+			</call>
         </service>
 
         <!-- Route Loader -->
