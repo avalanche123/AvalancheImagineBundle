@@ -3,7 +3,6 @@
 namespace Avalanche\Bundle\ImagineBundle\Templating;
 
 use Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver;
-use Symfony\Component\Filesystem\Filesystem;
 
 class ImagineExtension extends \Twig_Extension
 {
@@ -12,14 +11,18 @@ class ImagineExtension extends \Twig_Extension
      */
     private $cachePathResolver;
 
+    private $webRoot;
+
     /**
      * Constructs by setting $cachePathResolver
      *
-     * @param Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver $cachePathResolver
+     * @param \Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver $cachePathResolver
+     * @param string                                                    $webroot
      */
-    public function __construct(CachePathResolver $cachePathResolver)
+    public function __construct(CachePathResolver $cachePathResolver, $webRoot)
     {
         $this->cachePathResolver = $cachePathResolver;
+        $this->webRoot = $webRoot;
     }
 
     /**
@@ -44,6 +47,11 @@ class ImagineExtension extends \Twig_Extension
      */
     public function applyFilter($path, $filter, $absolute = false)
     {
+        $realPath = realpath($this->webRoot . $path);
+        if (!is_file($realPath)) {
+            return null;
+        }
+
         return $this->cachePathResolver->getBrowserPath($path, $filter, $absolute);
     }
 

@@ -12,14 +12,18 @@ class ImagineHelper extends Helper
      */
     private $cachePathResolver;
 
+    private $webRoot;
+
     /**
      * Constructs by setting $cachePathResolver
      *
-     * @param Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver $cachePathResolver
+     * @param \Avalanche\Bundle\ImagineBundle\Imagine\CachePathResolver $cachePathResolver
+     * @param string                                                    $webroot
      */
-    public function __construct(CachePathResolver $cachePathResolver)
+    public function __construct(CachePathResolver $cachePathResolver, $webRoot)
     {
         $this->cachePathResolver = $cachePathResolver;
+        $this->webRoot = $webRoot;
     }
 
     /**
@@ -28,11 +32,16 @@ class ImagineHelper extends Helper
      * @param string $path
      * @param string $filter
      * @param boolean $absolute
-     * 
+     *
      * @return string
      */
     public function filter($path, $filter, $absolute = false)
     {
+        $realPath = realpath($this->webRoot . $path);
+        if (!is_file($realPath)) {
+            return null;
+        }
+
         return $this->cachePathResolver->getBrowserPath($path, $filter, $absolute);
     }
 
