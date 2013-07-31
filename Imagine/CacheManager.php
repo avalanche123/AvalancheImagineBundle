@@ -65,11 +65,11 @@ class CacheManager
         $sourcePath = $this->sourceRoot.$path;
 
         // if the file has already been cached, just return path
-        if (file_exists($realPath)) {
+        if (is_file($realPath)) {
             return $realPath;
         }
 
-        if (!file_exists($sourcePath)) {
+        if (!is_file($sourcePath)) {
             return null;
         }
 
