@@ -76,10 +76,16 @@ class CacheManager
         $dir = pathinfo($realPath, PATHINFO_DIRNAME);
 
         if (!is_dir($dir)) {
-            if (false === $this->filesystem->mkdir($dir)) {
-                throw new \RuntimeException(sprintf(
-                    'Could not create directory %s', $dir
-                ));
+            try {
+                if (false === $this->filesystem->mkdir($dir)) {
+                    throw new \RuntimeException(sprintf(
+                        'Could not create directory %s', $dir
+                    ));
+                }
+            } catch (\Exception $e) {
+                if (!is_dir($dir)) {
+                    throw $e;
+                }
             }
         }
 
