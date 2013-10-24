@@ -40,7 +40,9 @@ class CachePathResolver
     {
         // identify if current path is not under specified web root and return
         // unmodified path in that case
-        $realPath = realpath($this->webRoot.$path);
+        //https://github.com/avalanche123/AvalancheImagineBundle/issues/163?source=cc
+		$path = preg_replace('/(\?.*)$/',"",$path);
+		$realPath = realpath($this->webRoot.$path);
 
         if (!0 === strpos($realPath, $this->webRoot)) {
             return $path;
