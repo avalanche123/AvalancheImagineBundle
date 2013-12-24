@@ -12,7 +12,7 @@ This will perform the transformation called `thumbnail`, which you can define
 to do a number of different things, such as resizing, cropping, drawing,
 masking, etc.
 
-This bundle integrates the standalone PHP "[Imagine library](/avalanche123/Imagine)".
+This bundle integrates the standalone PHP "[Imagine library](https://github.com/avalanche123/Imagine)".
 
 ## Installation
 
