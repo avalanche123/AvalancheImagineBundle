@@ -62,7 +62,9 @@ class CacheManager
         }
 
         $realPath = $this->webRoot.$browserPath;
-        $sourcePath = $this->sourceRoot.$path;
+        
+        $sourcePathRoot = $this->filterManager->getOption($filter, "source_root", $this->sourceRoot);
+        $sourcePath = $sourcePathRoot.$path;
 
         // if the file has already been cached, just return path
         if (is_file($realPath)) {
