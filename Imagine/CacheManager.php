@@ -18,6 +18,7 @@ class CacheManager
      * @param Filesystem        $filesystem
      * @param string            $webRoot
      * @param string            $sourceRoot
+     * @param int               $permissions
      */
     public function __construct(
         CachePathResolver $cachePathResolver,
@@ -25,7 +26,8 @@ class CacheManager
         FilterManager $filterManager,
         Filesystem $filesystem,
         $webRoot,
-        $sourceRoot
+        $sourceRoot,
+        $permissions
     )
     {
         $this->cachePathResolver = $cachePathResolver;
@@ -34,6 +36,7 @@ class CacheManager
         $this->filesystem        = $filesystem;
         $this->webRoot           = $webRoot;
         $this->sourceRoot        = $sourceRoot;
+        $this->permissions       = $permissions;
     }
 
     /**
@@ -99,6 +102,18 @@ class CacheManager
                 'format'  => $this->filterManager->getOption($filter, "format", null)
             ))
         ;
+        
+        try {
+            if (!chmod($realPath, $this->permissions))
+            {
+                throw new \RuntimeException(sprintf(
+                    'Could not set permissions %s on image saved in %s', $this->permissions, $realPath
+                ));
+            }
+            
+        } catch (Exception $e) {
+            throw $e;
+        }
         
         return $realPath;
     }

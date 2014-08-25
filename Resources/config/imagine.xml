@@ -11,6 +11,7 @@
         <parameter key="imagine.source_root">%kernel.root_dir%/../web</parameter>
         <parameter key="imagine.cache_prefix">media/cache</parameter>
         <parameter key="imagine.filters" type="collection" />
+        <parameter key="imagine.permissions">0644</parameter>
 
         <!-- Utility classes -->
 
@@ -69,6 +70,7 @@
             <argument type="service" id="filesystem" />
             <argument>%imagine.web_root%</argument>
             <argument>%imagine.source_root%</argument>
+            <argument>%imagine.permissions%</argument>
         </service>
 
         <service id="imagine.filter.manager" class="%imagine.filter.manager.class%">
