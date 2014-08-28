@@ -29,7 +29,7 @@ Add AvalancheImagineBundle in your composer.json:
 ```js
 {
     "require": {
-        "avalanche123/imagine-bundle": "v2.1"
+        "avalanche123/imagine-bundle": "dev-master"
     }
 }
 ```
