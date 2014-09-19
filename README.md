@@ -374,7 +374,7 @@ will apply your filter to '.jpg', and then concatenate the result to
 
 ## Using as a service
 
-You can also use ImagineBundle as a service and create the cache image from controller.
+You can use ImagineBundle as a service and resolve the cached image path.
 ```php
 $avalancheService = $this->get('imagine.cache.path.resolver');
 ```
@@ -383,3 +383,10 @@ Then, call the getBrowserPath and pass the original image webpath and the filter
 ```php
 $cachedImage = $avalancheService->getBrowserPath($object->getWebPath(), 'my_thumb');
 ```
+
+And also use ImagineBundle as a service and create the cache image from controller.
+```php
+$cacheManager = $this->get('imagine.cache.manager');
+$cachedPath = $cacheManager->cacheImage($this->getRequest()->getBaseUrl(), '/images/picture1.jpg', 'my_filter');
+```
+
