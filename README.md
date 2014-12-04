@@ -1,3 +1,8 @@
+Deprecated
+==========
+
+This project is no longer actively maintained, please find one of the populate forks. Thanks!
+
 AvalancheImagineBundle
 ======================
 
