@@ -60,6 +60,7 @@
 
         <service id="imagine.cache.path.resolver" class="%imagine.cache.path.resolver.class%">
             <argument>%imagine.web_root%</argument>
+            <argument>%imagine.source_root%</argument>
             <argument type="service" id="router" />
         </service>
 

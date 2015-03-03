@@ -11,6 +11,11 @@ class CachePathResolver
      * @var string
      */
     private $webRoot;
+    
+    /**
+     * @var string
+     */
+    private $sourceRoot;
 
     /**
      * @var Symfony\Component\Routing\RouterInterface
@@ -21,11 +26,13 @@ class CachePathResolver
      * Constructs cache path resolver with a given web root and cache prefix
      *
      * @param string                                    $webRoot
+     * @param string                                    $sourceRoot
      * @param Symfony\Component\Routing\RouterInterface $router
      */
-    public function __construct($webRoot, RouterInterface $router)
+    public function __construct($webRoot, $sourceRoot, RouterInterface $router)
     {
         $this->webRoot = $webRoot;
+        $this->sourceRoot = $sourceRoot;
         $this->router  = $router;
     }
 
@@ -38,11 +45,11 @@ class CachePathResolver
      */
     public function getBrowserPath($path, $filter, $absolute = false)
     {
-        // identify if current path is not under specified web root and return
+        // identify if current path is not under specified source root and return
         // unmodified path in that case
-        $realPath = realpath($this->webRoot.$path);
+        $realPath = realpath($this->sourceRoot.$path);
 
-        if (!0 === strpos($realPath, $this->webRoot)) {
+        if (!0 === strpos($realPath, $this->sourceRoot)) {
             return $path;
         }
 
