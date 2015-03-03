@@ -31,18 +31,8 @@ Installation is a quick 3 step process:
 
 Add AvalancheImagineBundle in your composer.json:
 
-```js
-{
-    "require": {
-        "avalanche123/imagine-bundle": "v2.1"
-    }
-}
-```
-
-Now tell composer to download the bundle by running the command:
-
-``` bash
-$ php composer.phar update avalanche123/imagine-bundle
+```sh
+composer require avalanche123/imagine-bundle
 ```
 
 Composer will install the bundle to your project's `vendor/avalanche123/imagine-bundle` directory.
