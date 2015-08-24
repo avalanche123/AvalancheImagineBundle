@@ -1,7 +1,7 @@
 Deprecated
 ==========
 
-This project is no longer actively maintained, please find one of the populate forks. Thanks!
+This project is no longer actively maintained, please prefer a popular fork like [LiipImagineBundle](https://github.com/liip/LiipImagineBundle). Thanks!
 
 AvalancheImagineBundle
 ======================
