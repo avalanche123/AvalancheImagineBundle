@@ -61,6 +61,9 @@ class CachePathResolver
             ), $absolute)
         );
         
+        // removing any files in the path, eg app_dev.php
+        $path = preg_replace('/\/[^\/\.]*\.php\//', '/', $path);
+        
         $cached = realpath($this->webRoot.$path);
 
         if (file_exists($cached) && !is_dir($cached) && filemtime($realPath) > filemtime($cached)) {
