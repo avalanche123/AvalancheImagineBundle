@@ -18,6 +18,7 @@ class CacheManager
      * @param Filesystem        $filesystem
      * @param string            $webRoot
      * @param string            $sourceRoot
+     * @param int               $permissions
      */
     public function __construct(
         CachePathResolver $cachePathResolver,
@@ -25,7 +26,8 @@ class CacheManager
         FilterManager $filterManager,
         Filesystem $filesystem,
         $webRoot,
-        $sourceRoot
+        $sourceRoot,
+        $permissions
     )
     {
         $this->cachePathResolver = $cachePathResolver;
@@ -34,6 +36,7 @@ class CacheManager
         $this->filesystem        = $filesystem;
         $this->webRoot           = $webRoot;
         $this->sourceRoot        = $sourceRoot;
+        $this->permissions       = $permissions;
     }
 
     /**
@@ -62,24 +65,32 @@ class CacheManager
         }
 
         $realPath = $this->webRoot.$browserPath;
-        $sourcePath = $this->sourceRoot.$path;
+        
+        $sourcePathRoot = $this->filterManager->getOption($filter, "source_root", $this->sourceRoot);
+        $sourcePath = $sourcePathRoot.$path;
 
         // if the file has already been cached, just return path
-        if (file_exists($realPath)) {
+        if (is_file($realPath)) {
             return $realPath;
         }
 
-        if (!file_exists($sourcePath)) {
+        if (!is_file($sourcePath)) {
             return null;
         }
 
         $dir = pathinfo($realPath, PATHINFO_DIRNAME);
 
         if (!is_dir($dir)) {
-            if (false === $this->filesystem->mkdir($dir)) {
-                throw new \RuntimeException(sprintf(
-                    'Could not create directory %s', $dir
-                ));
+            try {
+                if (false === $this->filesystem->mkdir($dir)) {
+                    throw new \RuntimeException(sprintf(
+                        'Could not create directory %s', $dir
+                    ));
+                }
+            } catch (\Exception $e) {
+                if (!is_dir($dir)) {
+                    throw $e;
+                }
             }
         }
 
@@ -91,6 +102,18 @@ class CacheManager
                 'format'  => $this->filterManager->getOption($filter, "format", null)
             ))
         ;
+        
+        try {
+            if (!chmod($realPath, $this->permissions))
+            {
+                throw new \RuntimeException(sprintf(
+                    'Could not set permissions %s on image saved in %s', $this->permissions, $realPath
+                ));
+            }
+            
+        } catch (Exception $e) {
+            throw $e;
+        }
         
         return $realPath;
     }
