@@ -20,14 +20,14 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": "2.*",
+        "symfony/framework-bundle": "2.*|3.*",
         "imagine/Imagine": "v0.5.0"
     },
     "require-dev": {
         "makasim/temp-file": "dev-master"
     },
     "suggest": {
-        "symfony/twig-bundle": "2.*"
+        "symfony/twig-bundle": "2.*|3.*"
     },
     "autoload": {
         "psr-0": { "Avalanche\\Bundle\\ImagineBundle": "" }
