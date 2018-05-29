@@ -3,6 +3,73 @@ Deprecated
 
 This project is no longer actively maintained, please find one of the populate forks. Thanks!
 
+One of the most popular forks is [Liip/ImagineBundle](https://github.com/liip/LiipImagineBundle). Also Liip/ImagineBundle is featured in the [official docs](http://symfony.com/doc/master/bundles/LiipImagineBundle/installation.html)
+Reference [Issue 25](https://github.com/avalanche123/AvalancheImagineBundle/pull/25) for additional information on the reasoning for the fork.
+
+Migration is pretty simple
+
+1. composer remove avalanche123/imagine-bundle
+2. composer require liip/imagine-bundle (use ~1.0 version constraint for symfony less that 3.4)
+3. in app/AppKernel.php replace 
+```
+new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+```
+with
+```
+new Liip\ImagineBundle\LiipImagineBundle(),
+```
+4. in app/config/routing.yml replace
+```
+_imagine:
+    resource: .
+    type:     imagine
+```
+with
+```
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+liip_imagine_fallback:
+    path: /cache/media/{filter}/{path}
+    defaults:
+        _controller: '%liip_imagine.controller.filter_action%'
+    methods:
+        - GET
+    requirements:
+        filter: '[A-z0-9_-]*'
+        path: .+    
+```
+5. in main config change thumbnail config format, sample
+```
+liip_imagine:
+    resolvers:
+        default:
+            web_path:
+                web_root: "%kernel.root_dir%/../web"
+                cache_prefix: "cache/media"
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.root_dir%/../../files"
+    filter_sets:
+        200:
+            filters:
+                thumbnail:  { size: [210, 5000], mode: inset }
+        200_150_fit:
+            filters:
+                thumbnail:  { size: [200, 150], mode: outbound }
+        scale_0_7:
+            filters:
+                relative_resize: { scale: 0.7 }
+```
+6. replace in code
+```
+{{ '/relative/path/to/image.jpg' | apply_filter('my_thumb') }}
+```
+to
+```
+{{ '/relative/path/to/image.jpg' | imagine_filter('my_thumb') }}
+```
+
 AvalancheImagineBundle
 ======================
 
