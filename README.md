@@ -61,6 +61,14 @@ liip_imagine:
             filters:
                 relative_resize: { scale: 0.7 }
 ```
+6. replace in code
+```
+{{ '/relative/path/to/image.jpg' | apply_filter('my_thumb') }}
+```
+to
+```
+{{ '/relative/path/to/image.jpg' | imagine_filter('my_thumb') }}
+```
 
 AvalancheImagineBundle
 ======================
