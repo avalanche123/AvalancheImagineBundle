@@ -1,3 +1,8 @@
+Deprecated
+==========
+
+This project is no longer actively maintained, please find one of the populate forks. Thanks!
+
 AvalancheImagineBundle
 ======================
 
@@ -12,7 +17,7 @@ This will perform the transformation called `thumbnail`, which you can define
 to do a number of different things, such as resizing, cropping, drawing,
 masking, etc.
 
-This bundle integrates the standalone PHP "[Imagine library](/avalanche123/Imagine)".
+This bundle integrates the standalone PHP "[Imagine library](https://github.com/avalanche123/Imagine)".
 
 ## Installation
 
@@ -26,18 +31,8 @@ Installation is a quick 3 step process:
 
 Add AvalancheImagineBundle in your composer.json:
 
-```js
-{
-    "require": {
-        "avalanche123/imagine-bundle": "v2.1"
-    }
-}
-```
-
-Now tell composer to download the bundle by running the command:
-
-``` bash
-$ php composer.phar update avalanche123/imagine-bundle
+```sh
+composer require avalanche123/imagine-bundle
 ```
 
 Composer will install the bundle to your project's `vendor/avalanche123/imagine-bundle` directory.
@@ -209,6 +204,7 @@ Each filter that you specify have the following options:
  - `type` - determine the type of filter to be used, refer to *Filters* section for more information
  - `options` - options that should be passed to the specific filter type
  - `path` - override the global `cache_prefix` and replace it with this path
+ - `source_root` - override the global `source_root` and replace it with this path
 
 ## Built-in Filters
 
@@ -313,6 +309,18 @@ avalanche_imagine:
 
 ```
 
+### Crop
+
+The `crop` filter crop an image with start coordinate, and size dimension.
+
+``` yaml
+avalanche_imagine:
+    filters:
+        crop:
+            type   : crop
+            options: { start: [0, 0], size: [100, 100] } #crop image with 100x100 square box
+```
+
 ## Load your Custom Filters
 
 The ImagineBundle allows you to load your own custom filter classes. The only
@@ -361,7 +369,7 @@ will apply your filter to '.jpg', and then concatenate the result to
 
 ## Using as a service
 
-You can also use ImagineBundle as a service and create the cache image from controller.
+You can use ImagineBundle as a service and resolve the cached image path.
 ```php
 $avalancheService = $this->get('imagine.cache.path.resolver');
 ```
@@ -370,3 +378,10 @@ Then, call the getBrowserPath and pass the original image webpath and the filter
 ```php
 $cachedImage = $avalancheService->getBrowserPath($object->getWebPath(), 'my_thumb');
 ```
+
+And also use ImagineBundle as a service and create the cache image from controller.
+```php
+$cacheManager = $this->get('imagine.cache.manager');
+$cachedPath = $cacheManager->cacheImage($this->getRequest()->getBaseUrl(), '/images/picture1.jpg', 'my_filter');
+```
+

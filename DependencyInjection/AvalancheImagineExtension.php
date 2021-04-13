@@ -44,7 +44,7 @@ class AvalancheImagineExtension extends Extension
         $config = array();
 
         foreach ($configs as $cnf) {
-            $config = array_merge($config, $cnf);
+            $config = array_merge_recursive($config, $cnf);
         }
 
         return $config;

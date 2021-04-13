@@ -5,9 +5,11 @@ namespace Avalanche\Bundle\ImagineBundle\Controller;
 use Avalanche\Bundle\ImagineBundle\Imagine\Filter\FilterManager;
 use Imagine\Image\ImagineInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Avalanche\Bundle\ImagineBundle\Imagine\CacheManager;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class ImagineController
 {
@@ -57,7 +59,11 @@ class ImagineController
      */
     public function filter($path, $filter)
     {
-        $cachedPath = $this->cacheManager->cacheImage($this->request->getBaseUrl(), $path, $filter);
+        try {
+            $cachedPath = $this->cacheManager->cacheImage($this->request->getBaseUrl(), $path, $filter);
+        } catch (RouteNotFoundException $e) {
+            throw new NotFoundHttpException('Filter doesn\'t exist.');
+        }
         
          // if cache path cannot be determined, return 404
         if (null === $cachedPath) {
@@ -115,4 +121,16 @@ class ImagineController
 	{
 		$this->request = $request;
 	}
+
+    /**
+     * Set the request
+     *
+     * @param Request $request
+     */
+    public function setRequestStack(RequestStack $request_stack = null)
+    {
+        if(!isset($this->request)) {
+            $this->request=$request_stack->getCurrentRequest();
+        }
+    }
 }
